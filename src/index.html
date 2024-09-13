@@ -81,20 +81,23 @@
       // Red and blue pills
       const redPill = document.getElementById('redPill');
       const bluePill = document.getElementById('bluePill');
-
+  
+      // Flag to indicate if the laptop is clickable
+      let laptopClickable = false;
+  
       // Flag to indicate if we should initialize the canvas after transition
       let shouldInitializeCanvas = false;
-
+  
       // Variables for the matrix rain effect
       let matrixRainInterval;
-
+  
       // Function to initialize Matrix rain effect
       function startMatrixRain() {
         matrixCanvas.style.display = 'block';
         const ctx = matrixCanvas.getContext('2d');
         matrixCanvas.width = window.innerWidth;
         matrixCanvas.height = window.innerHeight;
-
+  
         const letters = Array(256).join(1).split('');
         const fontSize = 14;
         
@@ -103,7 +106,7 @@
           ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
           ctx.fillStyle = '#0F0'; // Green color
           ctx.font = `${fontSize}px monospace`;
-
+  
           letters.forEach((yPos, index) => {
             const text = String.fromCharCode(0x30A0 + Math.random() * 96);
             const xPos = index * fontSize;
@@ -111,18 +114,20 @@
             letters[index] = yPos > matrixCanvas.height + Math.random() * 1e4 ? 0 : yPos + fontSize;
           });
         }
-
+  
         matrixRainInterval = setInterval(drawMatrixRain, 50);
       }
-
+  
       // Function to stop Matrix rain effect
       function stopMatrixRain() {
         clearInterval(matrixRainInterval);
         matrixCanvas.style.display = 'none';
       }
-
+  
       // Toggle opening/closing laptop and showing/hiding controls, images, and rain effect
       mockup.addEventListener('click', function () {
+        if (!laptopClickable) return;  // Disable the laptop click event if it's not clickable
+        
         mockup.classList.toggle('opened');
         
         if (mockup.classList.contains('opened')) {
@@ -145,7 +150,7 @@
           shouldInitializeCanvas = false; // Do not initialize
         }
       });
-
+  
       // Listen for transitionend event on the top part
       topPart.addEventListener('transitionend', function (event) {
         if (shouldInitializeCanvas && mockup.classList.contains('opened')) {
@@ -153,14 +158,14 @@
           canvas.style.display = 'block';
           logoImage.style.display = 'block';
           matlabImage.style.display = 'block';
-
+  
           setCanvasSize();  // Initialize the canvas size when animation completes
           animationRunning = true; // Start animation
           animate(); // Start the animation loop
           shouldInitializeCanvas = false; // Reset flag
         }
       });
-
+  
       // Red pill click event: Open the laptop
       redPill.addEventListener('click', function () {
         mockup.classList.add('opened');
@@ -169,13 +174,15 @@
         controls.style.display = 'block';
         shouldInitializeCanvas = true;
         startMatrixRain(); // Start the Matrix rain effect
+        laptopClickable = true;  // Enable the laptop click event after red pill is clicked
       });
-
+  
       // Blue pill click event: Redirect to external URL
       bluePill.addEventListener('click', function () {
         window.location.href = 'https://www.apple.com/apple-music/';
+        laptopClickable = true;  // Optionally, you can enable the laptop click event after the redirect
       });
-
+  
       // Handle window resize for matrix canvas size
       window.addEventListener('resize', () => {
         matrixCanvas.width = window.innerWidth;
