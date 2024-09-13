@@ -20,14 +20,14 @@ document.addEventListener("DOMContentLoaded", function() {
     };
   
     // default simulation values
-    let wavelength = 100;   // pixels
-    let frequency = 0.02;   // cycles / frame
-    let amplitude = 1;      // pixels
+    let wavelength = 100;      // pixels
+    let frequency = 0.02;      // cycles / frame
+    let amplitude = 1;         // pixels
     let numSources = 5;     
-    let spacing = 50;       // pixels
-    let blockLowerHalf = false;
-    let time = 0;           // frame count
-    let sources = [];       // store the source nodes
+    let spacing = 50;          // pixels
+    let blockLowerHalf = true; // blocking the lower part by default
+    let time = 0;              // frame count
+    let sources = [];          // store the source nodes
     
     
     function initSources() {
