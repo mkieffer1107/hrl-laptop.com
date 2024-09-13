@@ -17,11 +17,15 @@ body {
   perspective-origin: 50% 100%;
   opacity: 0;
   transition: 500ms opacity;
-  cursor: pointer;
+  /* No cursor:pointer here initially */
 }
 
 .mockup.loaded {
   opacity: 1;
+}
+
+.mockup.opened {
+  cursor: pointer; /* Enable pointer when the laptop is open */
 }
 
 .mockup .part .top,
@@ -130,7 +134,7 @@ body {
   display: none; /* Initially hidden */
   top: 10%; /* Adjust as needed to position the logos correctly */
   width: 80px; /* Adjust size as needed */
-  left: 83%
+  left: 83%;
 }
 
 /* Ensure the canvas is properly positioned */
