@@ -279,12 +279,12 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   
       // Amplitude control
-      window.amplitudeInput = document.getElementById('amplitudeInput');
-      const amplitudeValueDisplay = document.getElementById('amplitudeValue');
-      amplitudeInput.addEventListener('input', (e) => {
-        amplitude = parseFloat(e.target.value);
-        amplitudeValueDisplay.textContent = amplitude;
-      });
+      // window.amplitudeInput = document.getElementById('amplitudeInput');
+      // const amplitudeValueDisplay = document.getElementById('amplitudeValue');
+      // amplitudeInput.addEventListener('input', (e) => {
+      //   amplitude = parseFloat(e.target.value);
+      //   amplitudeValueDisplay.textContent = amplitude;
+      // });
   
       // Number of sources control
       window.numSourcesInput = document.getElementById('numSourcesInput');
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function() {
       angleValueDisplay.textContent = `${angleInput.value}°`;
       wavelengthValueDisplay.textContent = wavelengthInput.value;
       frequencyValueDisplay.textContent = frequencyInput.value;
-      amplitudeValueDisplay.textContent = amplitudeInput.value;
+      // amplitudeValueDisplay.textContent = amplitudeInput.value;
       numSourcesValueDisplay.textContent = numSourcesInput.value;
       spacingValueDisplay.textContent = spacingInput.value;
     }
