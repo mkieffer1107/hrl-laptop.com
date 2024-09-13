@@ -1,0 +1,145 @@
+body {
+  margin: 20px;
+}
+
+.container {
+  text-align: center;
+}
+
+.mockup {
+  position: relative; /* Ensure positioning context for absolute elements */
+  display: inline-block;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  font-size: 0;
+  perspective: 2400px;
+  perspective-origin: 50% 100%;
+  opacity: 0;
+  transition: 500ms opacity;
+  cursor: pointer;
+}
+
+.mockup.loaded {
+  opacity: 1;
+}
+
+.mockup .part .top,
+.mockup .part .bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mockup .part.top {
+  transform: translate3d(0, 0, 0) rotateX(-90deg);
+}
+
+.mockup.opened .part.top {
+  transform: translate3d(0, 0, 0) rotateX(0deg);
+}
+
+.mockup .part {
+  display: inline-block;
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  transition: 900ms;
+}
+
+.mockup.opened .part .top {
+  transform: translate3d(0, 0, -11px) rotateX(90deg) scale(1, 1);
+}
+
+.mockup .part .top {
+  transform-origin: 50% 0;
+  transform: translate3d(0, 0, -11px) rotateX(90deg);
+  transition: 900ms;
+}
+
+.mockup img {
+  display: block;
+  max-width: 100%;
+  backface-visibility: hidden;
+}
+
+.mockup .part .cover {
+  position: relative;
+}
+
+/* Styling the canvas to fit inside the mockup like the video */
+.mockup canvas {
+  display: block;
+  position: absolute;
+  top: 8%;
+  left: 4%;
+  width: 92%;
+  height: 80%; /* Ensuring it fills the height proportionally */
+  border-radius: 6px;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 1px);
+}
+
+.mockup .part.bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, 0, 0) rotateX(-90deg);
+}
+
+.mockup .part .bottom {
+  transform-origin: 50% 0;
+  transform: translate3d(0, 0, 0) rotateX(90deg);
+}
+
+/* Controls styling */
+#controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#controls label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#controls input[type="range"] {
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+#controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* Position the logo image */
+#logoImage {
+  position: absolute;
+  display: none; /* Initially hidden */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Place the logo between the canvas and the bottom part */
+  /* Adjust 'top' value as needed to position the logo */
+  top: 90%; /* Adjust 100px to position logo correctly */
+  width: 80px; /* Adjust size as needed */
+}
+
+#matlabImage {
+  position: absolute;
+  display: none; /* Initially hidden */
+  top: 10%; /* Adjust as needed to position the logos correctly */
+  width: 80px; /* Adjust size as needed */
+  left: 83%
+}
+
+/* Ensure the canvas is properly positioned */
+#waveCanvas {
+  position: absolute;
+  top: 8%;
+  left: 4%;
+  width: 92%;
+  height: 80%;
+  border-radius: 6px;
+  display: none; /* Initially hidden */
+}
