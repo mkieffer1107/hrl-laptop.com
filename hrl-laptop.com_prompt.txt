@@ -19,6 +19,8 @@ hrl-laptop.com/
 │   │   ├── matlab.png
 │   │   └── red.png
 │   ├── index.html
+│   ├── old_index.html
+│   ├── old_style.css
 │   ├── simulation.js
 │   └── style.css
 └── webpack.config.js
@@ -945,8 +947,8 @@ module.exports = {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- <title>HRL-2209-AB12-0034</title> -->
-   <title>
+  <!-- ... other head elements ... -->
+  <title>
     RDP
     Session ID: 2481  
     Connected to: HRL-WS003  
@@ -978,34 +980,47 @@ module.exports = {
       <img id="logoImage" src="assets/logo.png" alt="Logo" style="display: none;">
       <img id="matlabImage" src="assets/matlab.png" alt="Matlab Logo" style="display: none;">
     </div>
+
+    <!-- Controls (Initially hidden) -->
+    <div id="controls" class="matlab-interface" style="display: none;">
+      <!-- Removed window controls -->
+      <h3>Simulation Parameters</h3>
+      <div class="control-group">
+        <label for="angleInput">Steering Angle (θ):</label>
+        <input type="range" id="angleInput" min="-90" max="90" value="0">
+        <span id="angleValue" class="value-display">0°</span>
+      </div>
+      <div class="control-group">
+        <label for="wavelengthInput">Wavelength:</label>
+        <input type="range" id="wavelengthInput" min="50" max="200" value="100">
+        <span id="wavelengthValue" class="value-display">100</span>
+      </div>
+      <div class="control-group">
+        <label for="frequencyInput">Frequency:</label>
+        <input type="range" id="frequencyInput" min="0.01" max="0.05" step="0.005" value="0.02">
+        <span id="frequencyValue" class="value-display">0.02</span>
+      </div>
+      <div class="control-group">
+        <label for="numSourcesInput">Number of Sources:</label>
+        <input type="range" id="numSourcesInput" min="1" max="10" value="5">
+        <span id="numSourcesValue" class="value-display">5</span>
+      </div>
+      <div class="control-group">
+        <label for="spacingInput">Spacing:</label>
+        <input type="range" id="spacingInput" min="20" max="100" value="50">
+        <span id="spacingValue" class="value-display">50</span>
+      </div>
+      <!-- Centered Close Session Button -->
+      <div class="control-group">
+        <button id="closeSessionButton">Close Session</button>
+      </div>
+    </div>
   </div>
 
   <!-- Red and Blue Pills (Initially visible) -->
   <img id="redPill" src="assets/red.png" alt="Red Pill" style="position: absolute; bottom: 20%; left: 20%; width: 95px; cursor: pointer;">
   <img id="bluePill" src="assets/blue.png" alt="Blue Pill" style="position: absolute; bottom: 20%; right: 20%; width: 100px; cursor: pointer;">
 
-  <!-- Controls (Initially hidden) -->
-  <div id="controls" style="display: none; text-align: center; color: #ffffff; font-size: 18px; font-family: Arial, sans-serif; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);">
-    <label for="angleInput">Steering Angle (θ): <span id="angleValue">0°</span></label>
-    <input type="range" id="angleInput" min="-90" max="90" value="0" style="width: 20%; display: block; margin: 10px auto;">
-
-    <label for="wavelengthInput">Wavelength: <span id="wavelengthValue">100</span></label>
-    <input type="range" id="wavelengthInput" min="50" max="200" value="100" style="width: 20%; display: block; margin: 10px auto;">
-
-    <label for="frequencyInput">Frequency: <span id="frequencyValue">0.02</span></label>
-    <input type="range" id="frequencyInput" min="0.01" max="0.05" step="0.005" value="0.02" style="width: 20%; display: block; margin: 10px auto;">
-
-    <label for="amplitudeInput">Amplitude: <span id="amplitudeValue">1</span></label>
-    <input type="range" id="amplitudeInput" min="0.5" max="2" step="0.1" value="1" style="width: 20%; display: block; margin: 10px auto;">
-
-    <label for="numSourcesInput">Number of Sources: <span id="numSourcesValue">5</span></label>
-    <input type="range" id="numSourcesInput" min="1" max="10" value="5" style="width: 20%; display: block; margin: 10px auto;">
-
-    <label for="spacingInput">Spacing: <span id="spacingValue">50</span></label>
-    <input type="range" id="spacingInput" min="20" max="100" value="50" style="width: 20%; display: block; margin: 10px auto;">
-
-    <button id="toggleLowerHalf" style="background-color: #444; color: #fff; border: 1px solid #fff; padding: 10px 20px; margin-top: 20px;">Enable Lower Half</button>
-  </div>
 
   <!-- Simulation Script -->
   <script src="simulation.js" defer></script>
@@ -1064,30 +1079,7 @@ module.exports = {
         matrixCanvas.style.display = 'none';
       }
 
-      // Toggle opening/closing laptop and showing/hiding controls, images, and rain effect
-      mockup.addEventListener('click', function () {
-        mockup.classList.toggle('opened');
-        
-        if (mockup.classList.contains('opened')) {
-          // Show controls and start matrix rain after the laptop opens
-          controls.style.display = 'block';
-          shouldInitializeCanvas = true;
-          redPill.style.display = 'none';
-          bluePill.style.display = 'none';
-          startMatrixRain(); // Start the Matrix rain effect
-        } else {
-          // Hide canvas, logos, controls, and stop matrix rain when the laptop is closed
-          canvas.style.display = 'none';
-          logoImage.style.display = 'none';
-          matlabImage.style.display = 'none';
-          controls.style.display = 'none';
-          redPill.style.display = 'block';
-          bluePill.style.display = 'block';
-          stopMatrixRain(); // Stop the Matrix rain effect
-          animationRunning = false; // Stop simulation animation
-          shouldInitializeCanvas = false; // Do not initialize
-        }
-      });
+      // Removed laptop click event listener to make laptop non-clickable
 
       // Listen for transitionend event on the top part
       topPart.addEventListener('transitionend', function (event) {
@@ -1119,6 +1111,24 @@ module.exports = {
         window.location.href = 'https://www.apple.com/apple-music/';
       });
 
+      // Close Session button event: Close the laptop
+      const closeSessionButton = document.getElementById('closeSessionButton');
+      closeSessionButton.addEventListener('click', function() {
+        // Close the laptop
+        mockup.classList.remove('opened');
+
+        // Hide canvas, logos, controls, and stop matrix rain when the laptop is closed
+        canvas.style.display = 'none';
+        logoImage.style.display = 'none';
+        matlabImage.style.display = 'none';
+        controls.style.display = 'none';
+        redPill.style.display = 'block';
+        bluePill.style.display = 'block';
+        stopMatrixRain(); // Stop the Matrix rain effect
+        animationRunning = false; // Stop simulation animation
+        shouldInitializeCanvas = false; // Do not initialize
+      });
+
       // Handle window resize for matrix canvas size
       window.addEventListener('resize', () => {
         matrixCanvas.width = window.innerWidth;
@@ -1137,335 +1147,335 @@ module.exports = {
 // https://www.analog.com/media/en/analog-dialogue/volume-54/number-2/phased-array-antenna-patterns-part-1-linear-array-beam-characteristics-and-array-factor.pdf
 
 document.addEventListener("DOMContentLoaded", function() {
-    // set up the canvas
-    const canvas = document.getElementById('waveCanvas');
-    const ctx = canvas.getContext('2d');
+  // set up the canvas
+  const canvas = document.getElementById('waveCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Expose variables and functions globally
+  window.animationRunning = false;
+
+  window.setCanvasSize = function() {
+    const mockupTop = document.querySelector('.mockup .part.top');
+    const rect = mockupTop.getBoundingClientRect();
+
+    canvas.width = rect.width * 0.92;  // 92% width like the original video
+    canvas.height = rect.height * 0.80;  // 80% height
+
+    // Reinitialize sources with new canvas size
+    initSources();
+  };
+
+  // default simulation values
+  let wavelength = 100;      // pixels
+  let frequency = 0.02;      // cycles / frame
+  let amplitude = 1;         // pixels
+  let numSources = 5;     
+  let spacing = 50;          // pixels
+  let blockLowerHalf = true; // blocking the lower part by default
+  let time = 0;              // frame count
+  let sources = [];          // store the source nodes
   
-    // Expose variables and functions globally
-    window.animationRunning = false;
   
-    window.setCanvasSize = function() {
-      const mockupTop = document.querySelector('.mockup .part.top');
-      const rect = mockupTop.getBoundingClientRect();
-  
-      canvas.width = rect.width * 0.92;  // 92% width like the original video
-      canvas.height = rect.height * 0.80;  // 80% height
-  
-      // Reinitialize sources with new canvas size
-      initSources();
-    };
-  
-    // default simulation values
-    let wavelength = 100;      // pixels
-    let frequency = 0.02;      // cycles / frame
-    let amplitude = 1;         // pixels
-    let numSources = 5;     
-    let spacing = 50;          // pixels
-    let blockLowerHalf = true; // blocking the lower part by default
-    let time = 0;              // frame count
-    let sources = [];          // store the source nodes
-    
-    
-    function initSources() {
-      sources = [];
-      const startX = (canvas.width - (numSources - 1) * spacing) / 2;
-      const yPosition = canvas.height - canvas.height * 0.1;
-      for (let i = 0; i < numSources; i++) {
-        const x = startX + i * spacing;
-        sources.push(new Source(x, yPosition));
-      }
+  function initSources() {
+    sources = [];
+    const startX = (canvas.width - (numSources - 1) * spacing) / 2;
+    const yPosition = canvas.height - canvas.height * 0.1;
+    for (let i = 0; i < numSources; i++) {
+      const x = startX + i * spacing;
+      sources.push(new Source(x, yPosition));
     }
-  
-    class Source {
-      constructor(x, y, phase = 0) {
-        this.x = x;
-        this.y = y;
-        this.phase = phase; // phase offset for beam steering
-      }
-      getColor() {
-        const phaseShift = Math.sin(this.phase - time * 0.05); // Calculate phase shift based on time
-        const intensity = (phaseShift + 1) / 2; // Normalize between 0 and 1
-        const r = Math.floor(intensity * 255); // Map intensity to red color channel
-        const b = 255 - r; // Complementary blue color for contrast
-        return `rgb(${r}, 0, ${b})`;
-      }
+  }
+
+  class Source {
+    constructor(x, y, phase = 0) {
+      this.x = x;
+      this.y = y;
+      this.phase = phase; // phase offset for beam steering
     }
-  
-    // Do not initialize sources here; they will be initialized after canvas size is set
-    // initSources();
-  
-    function waveFunction(x, y, source) {
-      // zero out anything below the sources if bottom blocked
-      if (blockLowerHalf && y > canvas.height - canvas.height * 0.1) {
-        return 0;
-      }
-  
-      // calculate the distance from source to (x, y)
-      const dx = x - source.x;
-      const dy = y - source.y;
-      const r = Math.sqrt(dx * dx + dy * dy) + 0.0001;
-      const k = (2 * Math.PI) / wavelength;  // angular wave number
-      const omega = 2 * Math.PI * frequency; // angular frequency
-      return amplitude * Math.sin(k * r - omega * time + source.phase);
+    getColor() {
+      const phaseShift = Math.sin(this.phase - time * 0.05); // Calculate phase shift based on time
+      const intensity = (phaseShift + 1) / 2; // Normalize between 0 and 1
+      const r = Math.floor(intensity * 255); // Map intensity to red color channel
+      const b = 255 - r; // Complementary blue color for contrast
+      return `rgb(${r}, 0, ${b})`;
     }
-  
-    function steerBeam(thetaDegrees) {
-      // beam steering with phase shift calculation for far field
-      const theta = (thetaDegrees * Math.PI) / 180;
-      const k = (2 * Math.PI) / wavelength;  // angular wave number
-      const deltaPhi = (2 * Math.PI * spacing * Math.sin(theta)) / wavelength;
-  
-      for (let n = 0; n < sources.length; n++) {
-        sources[n].phase = n * deltaPhi;
-      }
+  }
+
+  // Do not initialize sources here; they will be initialized after canvas size is set
+  // initSources();
+
+  function waveFunction(x, y, source) {
+    // zero out anything below the sources if bottom blocked
+    if (blockLowerHalf && y > canvas.height - canvas.height * 0.1) {
+      return 0;
     }
-  
-    // HSV to RGB conversion (for visualizing wave intensities)
-    function HSVtoRGB(h, s, v) {
-      let r, g, b;
-      let i = Math.floor(h * 6);
-      let f = h * 6 - i;
-      let p = v * (1 - s);
-      let q = v * (1 - f * s);
-      let t = v * (1 - (1 - f) * s);
-  
-      switch (i % 6) {
-        case 0: r = v; g = t; b = p; break;
-        case 1: r = q; g = v; b = p; break;
-        case 2: r = p; g = v; b = t; break;
-        case 3: r = p; g = q; b = v; break;
-        case 4: r = t; g = p; b = v; break;
-        case 5: r = v; g = p; b = q; break;
-      }
-      return { r: Math.floor(r * 255), g: Math.floor(g * 255), b: Math.floor(b * 255) };
+
+    // calculate the distance from source to (x, y)
+    const dx = x - source.x;
+    const dy = y - source.y;
+    const r = Math.sqrt(dx * dx + dy * dy) + 0.0001;
+    const k = (2 * Math.PI) / wavelength;  // angular wave number
+    const omega = 2 * Math.PI * frequency; // angular frequency
+    return amplitude * Math.sin(k * r - omega * time + source.phase);
+  }
+
+  function steerBeam(thetaDegrees) {
+    // beam steering with phase shift calculation for far field
+    const theta = (thetaDegrees * Math.PI) / 180;
+    const k = (2 * Math.PI) / wavelength;  // angular wave number
+    const deltaPhi = (2 * Math.PI * spacing * Math.sin(theta)) / wavelength;
+
+    for (let n = 0; n < sources.length; n++) {
+      sources[n].phase = n * deltaPhi;
     }
-  
-    // Expose animate function globally
-    window.animate = function() {
-      if (!window.animationRunning) return;
-  
-      if (canvas.style.display !== 'none') {
-        time += 1;
-        draw();
-      }
-      requestAnimationFrame(animate);
-    };
-  
-    // Do not start the animation loop immediately
-    // animate(); // Remove or comment out this line
-  
-    // Draw function
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const imageData = ctx.createImageData(canvas.width, canvas.height);
-      const data = imageData.data;
-      const step = 4;
-  
-      for (let y = 0; y < canvas.height; y += step) {
-        for (let x = 0; x < canvas.width; x += step) {
-          let totalAmplitude = 0;
-  
-          for (const source of sources) {
-            totalAmplitude += waveFunction(x, y, source);
-          }
-  
-          const normalizedAmplitude = (totalAmplitude + amplitude * sources.length) / (2 * amplitude * sources.length);
-          const gamma = 0.7;
-          const adjustedAmplitude = Math.pow(normalizedAmplitude, gamma);
-          const hue = (1 - adjustedAmplitude) * 240;
-          const rgb = HSVtoRGB(hue / 360, 1, 1);
-  
-          for (let i = 0; i < step; i++) {
-            for (let j = 0; j < step; j++) {
-              if (x + i < canvas.width && y + j < canvas.height) {
-                const index = ((x + i) + (y + j) * canvas.width) * 4;
-                data[index] = rgb.r;
-                data[index + 1] = rgb.g;
-                data[index + 2] = rgb.b;
-                data[index + 3] = 255;
-              }
+  }
+
+  // HSV to RGB conversion (for visualizing wave intensities)
+  function HSVtoRGB(h, s, v) {
+    let r, g, b;
+    let i = Math.floor(h * 6);
+    let f = h * 6 - i;
+    let p = v * (1 - s);
+    let q = v * (1 - f * s);
+    let t = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+      case 0: r = v; g = t; b = p; break;
+      case 1: r = q; g = v; b = p; break;
+      case 2: r = p; g = v; b = t; break;
+      case 3: r = p; g = q; b = v; break;
+      case 4: r = t; g = p; b = v; break;
+      case 5: r = v; g = p; b = q; break;
+    }
+    return { r: Math.floor(r * 255), g: Math.floor(g * 255), b: Math.floor(b * 255) };
+  }
+
+  // Expose animate function globally
+  window.animate = function() {
+    if (!window.animationRunning) return;
+
+    if (canvas.style.display !== 'none') {
+      time += 1;
+      draw();
+    }
+    requestAnimationFrame(animate);
+  };
+
+  // Do not start the animation loop immediately
+  // animate(); // Remove or comment out this line
+
+  // Draw function
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const imageData = ctx.createImageData(canvas.width, canvas.height);
+    const data = imageData.data;
+    const step = 4;
+
+    for (let y = 0; y < canvas.height; y += step) {
+      for (let x = 0; x < canvas.width; x += step) {
+        let totalAmplitude = 0;
+
+        for (const source of sources) {
+          totalAmplitude += waveFunction(x, y, source);
+        }
+
+        const normalizedAmplitude = (totalAmplitude + amplitude * sources.length) / (2 * amplitude * sources.length);
+        const gamma = 0.7;
+        const adjustedAmplitude = Math.pow(normalizedAmplitude, gamma);
+        const hue = (1 - adjustedAmplitude) * 240;
+        const rgb = HSVtoRGB(hue / 360, 1, 1);
+
+        for (let i = 0; i < step; i++) {
+          for (let j = 0; j < step; j++) {
+            if (x + i < canvas.width && y + j < canvas.height) {
+              const index = ((x + i) + (y + j) * canvas.width) * 4;
+              data[index] = rgb.r;
+              data[index + 1] = rgb.g;
+              data[index + 2] = rgb.b;
+              data[index + 3] = 255;
             }
           }
         }
       }
-  
-      ctx.putImageData(imageData, 0, 0);
-      drawAxes();
-  
-      // Draw sources as circles
-      for (const source of sources) {
-        drawSource(source);
-      }
-  
-      // Draw the current beam direction arrow (black arrow based on angle)
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height - canvas.height * 0.1;
-  
-      const beamAngle = parseFloat(angleInput.value);
-      const beamArrowColor = 'black';
-  
-      const angleRadians = (beamAngle * Math.PI) / 180;
-      const beamLength = 50;
-  
-      const beamToX = centerX + beamLength * Math.sin(angleRadians);
-      const beamToY = centerY - beamLength * Math.cos(angleRadians); // Calculate the end of the arrow
-  
-      drawArrow(ctx, centerX, centerY, beamToX, beamToY, beamArrowColor);
-  
-      // Add label for current beam direction
-      ctx.fillStyle = 'black';
-      ctx.font = '16px Arial';
-      ctx.fillText(`θ = ${beamAngle}°`, beamToX + 5, beamToY + 15);
-  
-      // Draw a line to indicate the blocked region (if applicable)
-      if (blockLowerHalf) {
-        ctx.beginPath();
-        ctx.moveTo(0, canvas.height - canvas.height * 0.1);
-        ctx.lineTo(canvas.width, canvas.height - canvas.height * 0.1);
-        ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
     }
-  
-    // Draw source as a circle with color based on its phase
-    function drawSource(source) {
-      ctx.beginPath();
-      ctx.arc(source.x, source.y, 10, 0, Math.PI * 2); // Draw circle at source position
-      ctx.fillStyle = source.getColor(); // Get color based on phase
-      ctx.fill();
-      ctx.strokeStyle = 'black';
-      ctx.lineWidth = 2;
-      ctx.stroke(); // Outline the source
+
+    ctx.putImageData(imageData, 0, 0);
+    drawAxes();
+
+    // Draw sources as circles
+    for (const source of sources) {
+      drawSource(source);
     }
-  
-    // Arrow drawing function
-    function drawArrow(ctx, fromX, fromY, toX, toY, color) {
-      const headLength = 10; // Length of the arrowhead
-      const dx = toX - fromX;
-      const dy = toY - fromY;
-      const angle = Math.atan2(dy, dx);
-  
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 2;
-  
-      // Draw line
-      ctx.beginPath();
-      ctx.moveTo(fromX, fromY);
-      ctx.lineTo(toX, toY);
-      ctx.stroke();
-  
-      // Draw arrowhead
-      ctx.beginPath();
-      ctx.moveTo(toX, toY);
-      ctx.lineTo(
-        toX - headLength * Math.cos(angle - Math.PI / 6),
-        toY - headLength * Math.sin(angle - Math.PI / 6)
-      );
-      ctx.lineTo(
-        toX - headLength * Math.cos(angle + Math.PI / 6),
-        toY - headLength * Math.sin(angle + Math.PI / 6)
-      );
-      ctx.lineTo(toX, toY);
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-  
-    // Helper function to draw axes
-    function drawAxes() {
-      ctx.strokeStyle = 'gray';
-      ctx.lineWidth = 1;
+
+    // Draw the current beam direction arrow (black arrow based on angle)
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height - canvas.height * 0.1;
+
+    const beamAngle = parseFloat(angleInput.value);
+    const beamArrowColor = 'black';
+
+    const angleRadians = (beamAngle * Math.PI) / 180;
+    const beamLength = 50;
+
+    const beamToX = centerX + beamLength * Math.sin(angleRadians);
+    const beamToY = centerY - beamLength * Math.cos(angleRadians); // Calculate the end of the arrow
+
+    drawArrow(ctx, centerX, centerY, beamToX, beamToY, beamArrowColor);
+
+    // Add label for current beam direction
+    ctx.fillStyle = 'black';
+    ctx.font = '16px Arial';
+    ctx.fillText(`θ = ${beamAngle}°`, beamToX + 5, beamToY + 15);
+
+    // Draw a line to indicate the blocked region (if applicable)
+    if (blockLowerHalf) {
       ctx.beginPath();
       ctx.moveTo(0, canvas.height - canvas.height * 0.1);
       ctx.lineTo(canvas.width, canvas.height - canvas.height * 0.1);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(canvas.width / 2, 0);
-      ctx.lineTo(canvas.width / 2, canvas.height);
+      ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+      ctx.lineWidth = 2;
       ctx.stroke();
     }
-  
-    // Ensure controls are properly initialized
-    function initializeControls() {
-      // Angle input and beam steering
-      window.angleInput = document.getElementById('angleInput');
-      const angleValueDisplay = document.getElementById('angleValue');
-      angleInput.addEventListener('input', (e) => {
-        const angle = parseFloat(e.target.value);
-        angleValueDisplay.textContent = `${angle}°`;
-        steerBeam(angle);
-      });
-  
-      // Initialize other controls if they exist
-      // Wavelength control
-      window.wavelengthInput = document.getElementById('wavelengthInput');
-      const wavelengthValueDisplay = document.getElementById('wavelengthValue');
-      wavelengthInput.addEventListener('input', (e) => {
-        wavelength = parseFloat(e.target.value);
-        wavelengthValueDisplay.textContent = wavelength;
-      });
-  
-      // Frequency control
-      window.frequencyInput = document.getElementById('frequencyInput');
-      const frequencyValueDisplay = document.getElementById('frequencyValue');
-      frequencyInput.addEventListener('input', (e) => {
-        frequency = parseFloat(e.target.value);
-        frequencyValueDisplay.textContent = frequency;
-      });
-  
-      // Amplitude control
-      window.amplitudeInput = document.getElementById('amplitudeInput');
-      const amplitudeValueDisplay = document.getElementById('amplitudeValue');
-      amplitudeInput.addEventListener('input', (e) => {
-        amplitude = parseFloat(e.target.value);
-        amplitudeValueDisplay.textContent = amplitude;
-      });
-  
-      // Number of sources control
-      window.numSourcesInput = document.getElementById('numSourcesInput');
-      const numSourcesValueDisplay = document.getElementById('numSourcesValue');
-      numSourcesInput.addEventListener('input', (e) => {
-        numSources = parseInt(e.target.value);
-        numSourcesValueDisplay.textContent = numSources;
-        initSources(); // Reinitialize sources when the number changes
-      });
-  
-      // Spacing control
-      window.spacingInput = document.getElementById('spacingInput');
-      const spacingValueDisplay = document.getElementById('spacingValue');
-      spacingInput.addEventListener('input', (e) => {
-        spacing = parseInt(e.target.value);
-        spacingValueDisplay.textContent = spacing;
-        initSources(); // Reinitialize sources when spacing changes
-      });
-  
-      // Block lower half toggle
-      const toggleButton = document.getElementById('toggleLowerHalf');
-      toggleButton.addEventListener('click', () => {
-        blockLowerHalf = !blockLowerHalf;
-        toggleButton.textContent = blockLowerHalf ? 'Enable Lower Half' : 'Disable Lower Half';
-      });
-  
-      // Update initial values
-      angleValueDisplay.textContent = `${angleInput.value}°`;
-      wavelengthValueDisplay.textContent = wavelengthInput.value;
-      frequencyValueDisplay.textContent = frequencyInput.value;
-      amplitudeValueDisplay.textContent = amplitudeInput.value;
-      numSourcesValueDisplay.textContent = numSourcesInput.value;
-      spacingValueDisplay.textContent = spacingInput.value;
-    }
-  
-    // Initialize controls when the canvas becomes visible
-    initializeControls();
-  
-    // Listen for window resize to adjust canvas size
-    window.addEventListener('resize', () => {
-      if (canvas.style.display === 'block') {
-        setCanvasSize();
-      }
+  }
+
+  // Draw source as a circle with color based on its phase
+  function drawSource(source) {
+    ctx.beginPath();
+    ctx.arc(source.x, source.y, 10, 0, Math.PI * 2); // Draw circle at source position
+    ctx.fillStyle = source.getColor(); // Get color based on phase
+    ctx.fill();
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 2;
+    ctx.stroke(); // Outline the source
+  }
+
+  // Arrow drawing function
+  function drawArrow(ctx, fromX, fromY, toX, toY, color) {
+    const headLength = 10; // Length of the arrowhead
+    const dx = toX - fromX;
+    const dy = toY - fromY;
+    const angle = Math.atan2(dy, dx);
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+
+    // Draw line
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    ctx.stroke();
+
+    // Draw arrowhead
+    ctx.beginPath();
+    ctx.moveTo(toX, toY);
+    ctx.lineTo(
+      toX - headLength * Math.cos(angle - Math.PI / 6),
+      toY - headLength * Math.sin(angle - Math.PI / 6)
+    );
+    ctx.lineTo(
+      toX - headLength * Math.cos(angle + Math.PI / 6),
+      toY - headLength * Math.sin(angle + Math.PI / 6)
+    );
+    ctx.lineTo(toX, toY);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  // Helper function to draw axes
+  function drawAxes() {
+    ctx.strokeStyle = 'gray';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height - canvas.height * 0.1);
+    ctx.lineTo(canvas.width, canvas.height - canvas.height * 0.1);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.lineTo(canvas.width / 2, canvas.height);
+    ctx.stroke();
+  }
+
+  // Ensure controls are properly initialized
+  function initializeControls() {
+    // Angle input and beam steering
+    window.angleInput = document.getElementById('angleInput');
+    const angleValueDisplay = document.getElementById('angleValue');
+    angleInput.addEventListener('input', (e) => {
+      const angle = parseFloat(e.target.value);
+      angleValueDisplay.textContent = `${angle}°`;
+      steerBeam(angle);
     });
+
+    // Initialize other controls if they exist
+    // Wavelength control
+    window.wavelengthInput = document.getElementById('wavelengthInput');
+    const wavelengthValueDisplay = document.getElementById('wavelengthValue');
+    wavelengthInput.addEventListener('input', (e) => {
+      wavelength = parseFloat(e.target.value);
+      wavelengthValueDisplay.textContent = wavelength;
+    });
+
+    // Frequency control
+    window.frequencyInput = document.getElementById('frequencyInput');
+    const frequencyValueDisplay = document.getElementById('frequencyValue');
+    frequencyInput.addEventListener('input', (e) => {
+      frequency = parseFloat(e.target.value);
+      frequencyValueDisplay.textContent = frequency;
+    });
+
+    // Amplitude control
+    // window.amplitudeInput = document.getElementById('amplitudeInput');
+    // const amplitudeValueDisplay = document.getElementById('amplitudeValue');
+    // amplitudeInput.addEventListener('input', (e) => {
+    //   amplitude = parseFloat(e.target.value);
+    //   amplitudeValueDisplay.textContent = amplitude;
+    // });
+
+    // Number of sources control
+    window.numSourcesInput = document.getElementById('numSourcesInput');
+    const numSourcesValueDisplay = document.getElementById('numSourcesValue');
+    numSourcesInput.addEventListener('input', (e) => {
+      numSources = parseInt(e.target.value);
+      numSourcesValueDisplay.textContent = numSources;
+      initSources(); // Reinitialize sources when the number changes
+    });
+
+    // Spacing control
+    window.spacingInput = document.getElementById('spacingInput');
+    const spacingValueDisplay = document.getElementById('spacingValue');
+    spacingInput.addEventListener('input', (e) => {
+      spacing = parseInt(e.target.value);
+      spacingValueDisplay.textContent = spacing;
+      initSources(); // Reinitialize sources when spacing changes
+    });
+
+    // Block lower half toggle
+    // const toggleButton = document.getElementById('toggleLowerHalf');
+    // toggleButton.addEventListener('click', () => {
+    //   blockLowerHalf = !blockLowerHalf;
+    //   toggleButton.textContent = blockLowerHalf ? 'Enable Lower Half' : 'Disable Lower Half';
+    // });
+
+    // Update initial values
+    angleValueDisplay.textContent = `${angleInput.value}°`;
+    wavelengthValueDisplay.textContent = wavelengthInput.value;
+    frequencyValueDisplay.textContent = frequencyInput.value;
+    // amplitudeValueDisplay.textContent = amplitudeInput.value;
+    numSourcesValueDisplay.textContent = numSourcesInput.value;
+    spacingValueDisplay.textContent = spacingInput.value;
+  }
+
+  // Initialize controls when the canvas becomes visible
+  initializeControls();
+
+  // Listen for window resize to adjust canvas size
+  window.addEventListener('resize', () => {
+    if (canvas.style.display === 'block') {
+      setCanvasSize();
+    }
   });
+});
 </content>
 </file>
 
@@ -1474,16 +1484,18 @@ document.addEventListener("DOMContentLoaded", function() {
 <content>
 body {
   margin: 20px;
+  font-family: 'Space Grotesk';
 }
 
 .container {
   text-align: center;
+  position: relative;
+  margin: 0 auto;
 }
 
 .mockup {
-  position: relative; /* Ensure positioning context for absolute elements */
-  display: inline-block;
   position: relative;
+  display: inline-block;
   z-index: 3;
   text-align: center;
   font-size: 0;
@@ -1491,11 +1503,15 @@ body {
   perspective-origin: 50% 100%;
   opacity: 0;
   transition: 500ms opacity;
-  cursor: pointer;
 }
 
 .mockup.loaded {
   opacity: 1;
+}
+
+/* Removed cursor pointer to make laptop non-clickable */
+.mockup.opened {
+  /* cursor: pointer; */
 }
 
 .mockup .part .top,
@@ -1541,14 +1557,14 @@ body {
   position: relative;
 }
 
-/* Styling the canvas to fit inside the mockup like the video */
+/* Styling the canvas to fit inside the mockup */
 .mockup canvas {
   display: block;
   position: absolute;
   top: 8%;
   left: 4%;
   width: 92%;
-  height: 80%; /* Ensuring it fills the height proportionally */
+  height: 80%;
   border-radius: 6px;
   backface-visibility: hidden;
   transform: translate3d(0, 0, 1px);
@@ -1566,45 +1582,283 @@ body {
   transform: translate3d(0, 0, 0) rotateX(90deg);
 }
 
-/* Controls styling */
-#controls {
-  margin-top: 20px;
-  text-align: center;
+/* MATLAB interface styles */
+.matlab-interface {
+  background-color: #d9d9d9;
+  border: 1px solid #a6a6a6;
+  padding: 20px;
+  color: #000000;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  position: absolute;
+  top: calc(100% + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  display: none;
+  font-family: 'Space Grotesk';
 }
 
-#controls label {
+.mockup.opened + .matlab-interface {
   display: block;
-  margin-bottom: 5px;
 }
 
-#controls input[type="range"] {
-  width: 300px;
+.matlab-interface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25px;
+  background: linear-gradient(to bottom, #f0f0f0, #d9d9d9);
+  border-bottom: 1px solid #a6a6a6;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.matlab-interface h3 {
+  text-align: center;
+  margin: 30px 0 20px 0;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  color: #333333;
+  font-family: 'Space Grotesk';
+
+  font-weight: 600;
+}
+
+.matlab-interface .control-group {
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
 }
 
-#controls button {
-  padding: 10px 20px;
-  font-size: 16px;
+.matlab-interface label {
+  display: inline-block;
+  width: 180px;
+  text-align: right;
+  margin-right: 15px;
+  font-family: 'Space Grotesk';
+  font-weight: 400;
+}
+
+.matlab-interface .value-display {
+  width: 60px;
+  text-align: left;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+/* Enhanced rectangular slider styles */
+.matlab-interface input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(to bottom, #e6e6e6, #c2c2c2);
+  border: 1px solid #999999;
+  border-radius: 2px;
+  outline: none;
+  margin-right: 10px;
+  position: relative;
+  overflow: visible;
+  margin-top: 2px;
+}
+
+.matlab-interface input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 36px;
+  background: linear-gradient(to bottom, #d0d0d0, #888888);
+  border: 1px solid #555555;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  margin-top: -12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.matlab-interface input[type="range"]::-webkit-slider-thumb::before,
+.matlab-interface input[type="range"]::-webkit-slider-thumb::after {
+  content: '';
+  position: absolute;
+  left: -8px;
+  width: 28px;
+  height: 6px;
+  background: linear-gradient(to bottom, #d0d0d0, #888888);
+  border: 1px solid #555555;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.matlab-interface input[type="range"]::-webkit-slider-thumb::before {
+  top: -8px;
+}
+
+.matlab-interface input[type="range"]::-webkit-slider-thumb::after {
+  bottom: -8px;
+}
+
+.matlab-interface input[type="range"]:focus::-webkit-slider-thumb,
+.matlab-interface input[type="range"]:hover::-webkit-slider-thumb {
+  background: linear-gradient(to bottom, #b0b0b0, #707070);
+}
+
+.matlab-interface input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 36px;
+  background: linear-gradient(to bottom, #d0d0d0, #888888);
+  border: 1px solid #555555;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.matlab-interface input[type="range"]::-moz-range-thumb::before,
+.matlab-interface input[type="range"]::-moz-range-thumb::after {
+  content: '';
+  position: absolute;
+  left: -8px;
+  width: 28px;
+  height: 6px;
+  background: linear-gradient(to bottom, #d0d0d0, #888888);
+  border: 1px solid #555555;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.matlab-interface input[type="range"]::-moz-range-thumb::before {
+  top: -8px;
+}
+
+.matlab-interface input[type="range"]::-moz-range-thumb::after {
+  bottom: -8px;
+}
+
+.matlab-interface input[type="range"]:focus::-moz-range-thumb,
+.matlab-interface input[type="range"]:hover::-moz-range-thumb {
+  background: linear-gradient(to bottom, #b0b0b0, #707070);
+}
+
+.matlab-interface input[type="range"]::-ms-thumb {
+  width: 12px;
+  height: 36px;
+  background: linear-gradient(to bottom, #d0d0d0, #888888);
+  border: 1px solid #555555;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.matlab-interface input[type="range"]::-ms-thumb::before,
+.matlab-interface input[type="range"]::-ms-thumb::after {
+  content: '';
+  position: absolute;
+  left: -8px;
+  width: 28px;
+  height: 6px;
+  background: linear-gradient(to bottom, #d0d0d0, #888888);
+  border: 1px solid #555555;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.matlab-interface input[type="range"]::-ms-thumb::before {
+  top: -8px;
+}
+
+.matlab-interface input[type="range"]::-ms-thumb::after {
+  bottom: -8px;
+}
+
+.matlab-interface input[type="range"]:focus::-ms-thumb,
+.matlab-interface input[type="range"]:hover::-ms-thumb {
+  background: linear-gradient(to bottom, #b0b0b0, #707070);
+}
+
+/* Window controls */
+.matlab-interface .window-controls {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+}
+
+.matlab-interface .window-controls div {
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  border: 1px solid #666666;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  position: relative;
+}
+
+.matlab-interface .window-controls .minimize::before {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 2px;
+  background-color: #666666;
+  position: absolute;
+  top: 6px;
+  left: 4px;
+}
+
+.matlab-interface .window-controls .maximize::before {
+  content: '';
+  display: block;
+  width: 9px;
+  height: 9px;
+  border: 1px solid #666666;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.matlab-interface .window-controls .close::before {
+  content: '';
+  display: block;
+  width: 9px;
+  height: 2px;
+  background-color: #666666;
+  position: absolute;
+  top: 6px;
+  left: 3px;
+  transform: rotate(45deg);
+}
+
+.matlab-interface .window-controls .close::after {
+  content: '';
+  display: block;
+  width: 9px;
+  height: 2px;
+  background-color: #666666;
+  position: absolute;
+  top: 6px;
+  left: 3px;
+  transform: rotate(-45deg);
 }
 
 /* Position the logo image */
 #logoImage {
   position: absolute;
-  display: none; /* Initially hidden */
+  display: none;
   left: 50%;
   transform: translateX(-50%);
-  /* Place the logo between the canvas and the bottom part */
-  /* Adjust 'top' value as needed to position the logo */
-  top: 90%; /* Adjust 100px to position logo correctly */
-  width: 80px; /* Adjust size as needed */
+  top: 90%;
+  width: 80px;
 }
 
 #matlabImage {
   position: absolute;
-  display: none; /* Initially hidden */
-  top: 10%; /* Adjust as needed to position the logos correctly */
-  width: 80px; /* Adjust size as needed */
-  left: 83%
+  display: none;
+  top: 10%;
+  width: 80px;
+  left: 83%;
 }
 
 /* Ensure the canvas is properly positioned */
@@ -1615,7 +1869,23 @@ body {
   width: 92%;
   height: 80%;
   border-radius: 6px;
-  display: none; /* Initially hidden */
+  display: none;
+}
+
+/* Added styles for Close Session button */
+.matlab-interface .control-group button {
+  padding: 6px 12px;
+  font-size: 12px;
+  background-color: #e0e0e0;
+  border: 1px solid #999999;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-left: 43%; 
+  font-family: 'Space Grotesk';
+}
+
+.matlab-interface .control-group button:hover {
+  background-color: #d0d0d0;
 }
 </content>
 </file>

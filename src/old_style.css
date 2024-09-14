@@ -1,0 +1,397 @@
+body {
+    margin: 20px;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .mockup {
+    position: relative; /* Ensure positioning context for absolute elements */
+    display: inline-block;
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    font-size: 0;
+    perspective: 2400px;
+    perspective-origin: 50% 100%;
+    opacity: 0;
+    transition: 500ms opacity;
+    /* No cursor:pointer here initially */
+  }
+  
+  .mockup.loaded {
+    opacity: 1;
+  }
+  
+  .mockup.opened {
+    cursor: pointer; /* Enable pointer when the laptop is open */
+  }
+  
+  .mockup .part .top,
+  .mockup .part .bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .mockup .part.top {
+    transform: translate3d(0, 0, 0) rotateX(-90deg);
+  }
+  
+  .mockup.opened .part.top {
+    transform: translate3d(0, 0, 0) rotateX(0deg);
+  }
+  
+  .mockup .part {
+    display: inline-block;
+    position: relative;
+    transform-style: preserve-3d;
+    transform-origin: 50% 100%;
+    transition: 900ms;
+  }
+  
+  .mockup.opened .part .top {
+    transform: translate3d(0, 0, -11px) rotateX(90deg) scale(1, 1);
+  }
+  
+  .mockup .part .top {
+    transform-origin: 50% 0;
+    transform: translate3d(0, 0, -11px) rotateX(90deg);
+    transition: 900ms;
+  }
+  
+  .mockup img {
+    display: block;
+    max-width: 100%;
+    backface-visibility: hidden;
+  }
+  
+  .mockup .part .cover {
+    position: relative;
+  }
+  
+  /* Styling the canvas to fit inside the mockup like the video */
+  .mockup canvas {
+    display: block;
+    position: absolute;
+    top: 8%;
+    left: 4%;
+    width: 92%;
+    height: 80%; /* Ensuring it fills the height proportionally */
+    border-radius: 6px;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 1px);
+  }
+  
+  .mockup .part.bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate3d(0, 0, 0) rotateX(-90deg);
+  }
+  
+  .mockup .part .bottom {
+    transform-origin: 50% 0;
+    transform: translate3d(0, 0, 0) rotateX(90deg);
+  }
+  
+  /* Controls styling */
+  #controls {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  #controls label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  #controls input[type="range"] {
+    width: 300px;
+    margin-bottom: 15px;
+  }
+  
+  #controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  /* Position the logo image */
+  #logoImage {
+    position: absolute;
+    display: none; /* Initially hidden */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Place the logo between the canvas and the bottom part */
+    /* Adjust 'top' value as needed to position the logo */
+    top: 90%; /* Adjust 100px to position logo correctly */
+    width: 80px; /* Adjust size as needed */
+  }
+  
+  #matlabImage {
+    position: absolute;
+    display: none; /* Initially hidden */
+    top: 10%; /* Adjust as needed to position the logos correctly */
+    width: 80px; /* Adjust size as needed */
+    left: 83%;
+  }
+  
+  /* Ensure the canvas is properly positioned */
+  #waveCanvas {
+    position: absolute;
+    top: 8%;
+    left: 4%;
+    width: 92%;
+    height: 80%;
+    border-radius: 6px;
+    display: none; /* Initially hidden */
+  }
+  
+  
+  
+  /* ... existing styles ... */
+  
+  /* Enhanced MATLAB interface styles */
+  .matlab-interface {
+    background-color: #d9d9d9; /* Slightly darker background */
+    border: 1px solid #a6a6a6; /* Darker border */
+    padding: 20px;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #000000;
+    width: 600px;
+    margin: 20px auto;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    font-size: 12px;
+    position: relative; /* For positioning child elements */
+    border-radius: 5px;
+  }
+  
+  /* Add a gradient header bar */
+  .matlab-interface::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: linear-gradient(to bottom, #f0f0f0, #d9d9d9);
+    border-bottom: 1px solid #a6a6a6;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  
+  /* Window title */
+  .matlab-interface h3 {
+    text-align: center;
+    margin: 30px 0 20px 0; /* Adjust top margin to account for header bar */
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    color: #333333;
+  }
+  
+  /* Control group styling */
+  .matlab-interface .control-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Labels */
+  .matlab-interface label {
+    display: inline-block;
+    width: 180px;
+    text-align: right;
+    margin-right: 10px;
+  }
+  
+  /* Value displays */
+  .matlab-interface .value-display {
+    width: 60px;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  /* Enhanced custom slider styles */
+  .matlab-interface input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(to bottom, #f2f2f2, #cccccc);
+    border: 1px solid #999999;
+    border-radius: 2px;
+    outline: none;
+    margin-right: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .matlab-interface input[type="range"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 10%,
+      rgba(0, 0, 0, 0.05) 10%,
+      rgba(0, 0, 0, 0.05) 20%
+    );
+    pointer-events: none;
+  }
+  
+  .matlab-interface input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 25px;
+    background: linear-gradient(to bottom, #e6e6e6, #bfbfbf);
+    border: 1px solid #8c8c8c;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: -7px; /* Adjust to align the thumb vertically */
+  }
+  
+  .matlab-interface input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 25px;
+    background: linear-gradient(to bottom, #e6e6e6, #bfbfbf);
+    border: 1px solid #8c8c8c;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  .matlab-interface input[type="range"]::-ms-thumb {
+    width: 15px;
+    height: 25px;
+    background: linear-gradient(to bottom, #e6e6e6, #bfbfbf);
+    border: 1px solid #8c8c8c;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  .matlab-interface input[type="range"]::-webkit-slider-runnable-track {
+    height: 12px;
+    background: linear-gradient(to bottom, #f2f2f2, #cccccc);
+    border: 1px solid #999999;
+    border-radius: 2px;
+  }
+  
+  .matlab-interface input[type="range"]::-moz-range-track {
+    height: 12px;
+    background: linear-gradient(to bottom, #f2f2f2, #cccccc);
+    border: 1px solid #999999;
+    border-radius: 2px;
+  }
+  
+  .matlab-interface input[type="range"]::-ms-track {
+    height: 12px;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  
+  .matlab-interface input[type="range"]::-ms-fill-lower {
+    background: linear-gradient(to bottom, #f2f2f2, #cccccc);
+    border: 1px solid #999999;
+  }
+  
+  .matlab-interface input[type="range"]::-ms-fill-upper {
+    background: linear-gradient(to bottom, #f2f2f2, #cccccc);
+    border: 1px solid #999999;
+  }
+  
+  .matlab-interface input[type="range"]:focus::-webkit-slider-thumb {
+    background: linear-gradient(to bottom, #d9d9d9, #b3b3b3);
+  }
+  
+  .matlab-interface input[type="range"]:focus::-moz-range-thumb {
+    background: linear-gradient(to bottom, #d9d9d9, #b3b3b3);
+  }
+  
+  .matlab-interface input[type="range"]:focus::-ms-thumb {
+    background: linear-gradient(to bottom, #d9d9d9, #b3b3b3);
+  }
+  
+  /* Add window controls like in MATLAB */
+  .matlab-interface .window-controls {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+  }
+  
+  .matlab-interface .window-controls div {
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+    border: 1px solid #666666;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .matlab-interface .window-controls .minimize::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 2px;
+    background-color: #666666;
+    position: absolute;
+    top: 6px;
+    left: 4px;
+  }
+  
+  .matlab-interface .window-controls .maximize::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    border: 1px solid #666666;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+  }
+  
+  .matlab-interface .window-controls .close::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 2px;
+    background-color: #666666;
+    position: absolute;
+    top: 6px;
+    left: 3px;
+    transform: rotate(45deg);
+  }
+  
+  .matlab-interface .window-controls .close::after {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 2px;
+    background-color: #666666;
+    position: absolute;
+    top: 6px;
+    left: 3px;
+    transform: rotate(-45deg);
+  }
+  
+  /* Adjust slider alignment */
+  .matlab-interface input[type="range"] {
+    margin-top: 2px;
+  }
+  
+  /* Adjust margins for better spacing */
+  .matlab-interface .control-group label {
+    margin-right: 15px;
+  }
+  
+  .matlab-interface .control-group .value-display {
+    margin-left: 5px;
+  }
+  
