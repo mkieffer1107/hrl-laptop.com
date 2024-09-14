@@ -110,7 +110,7 @@ body {
   box-shadow: inset 2px 2px 0 #ffffff, inset -2px -2px 0 #808080; /* Windows 95 style inset */
   font-size: 14px;
   position: absolute;
-  top: calc(100% + 20px);
+  top: calc(100% + 40px);
   left: 50%;
   transform: translateX(-50%);
   display: none;
