@@ -947,7 +947,9 @@ module.exports = {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- ... other head elements ... -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <title>
     RDP
     Session ID: 2481  
@@ -990,7 +992,7 @@ module.exports = {
         <span id="angleValue" class="value-display">0°</span>
       </div>
       <div class="control-group">
-        <label for="wavelengthInput">Wavelength:</label>
+        <label for="wavelengthInput">Wavelength (px):</label>
         <input type="range" id="wavelengthInput" min="50" max="200" value="100">
         <span id="wavelengthValue" class="value-display">100</span>
       </div>
@@ -1001,12 +1003,13 @@ module.exports = {
         <span id="frequencyValue" class="value-display">0.02</span>
       </div>
       <div class="control-group">
-        <label for="numSourcesInput">Number of Sources:</label>
+        <label for="numSourcesInput">Source Count:</label>
+        <!-- <label for="numSourcesInput">Number of Sources:</label> -->
         <input type="range" id="numSourcesInput" min="1" max="10" value="5">
         <span id="numSourcesValue" class="value-display">5</span>
       </div>
       <div class="control-group">
-        <label for="spacingInput">Spacing:</label>
+        <label for="spacingInput">Spacing (px):</label>
         <input type="range" id="spacingInput" min="20" max="100" value="50">
         <span id="spacingValue" class="value-display">50</span>
       </div>
@@ -1481,7 +1484,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <content>
 body {
   margin: 20px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 .container {
@@ -1502,13 +1505,13 @@ body {
   transition: 500ms opacity;
 }
 
-.mockup.loaded {
-  opacity: 1;
-}
-
 /* Removed cursor pointer to make laptop non-clickable */
 .mockup.opened {
   /* cursor: pointer; */
+}
+
+.mockup.loaded {
+  opacity: 1;
 }
 
 .mockup .part .top,
@@ -1586,16 +1589,16 @@ body {
   padding: 15px;
   color: #000000;
   width: 100%;
-  max-width: 600px;
+  max-width: 650px; /* Increased max-width to accommodate longer labels */
   margin: 0 auto;
   box-shadow: inset 2px 2px 0 #ffffff, inset -2px -2px 0 #808080; /* Windows 95 style inset */
   font-size: 14px;
   position: absolute;
-  top: calc(100% + 20px);
+  top: calc(100% + 40px);
   left: 50%;
   transform: translateX(-50%);
   display: none;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 .mockup.opened + .matlab-interface {
@@ -1614,12 +1617,15 @@ body {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping within control groups */
 }
 
 .matlab-interface label {
-  width: 180px;
+  width: 200px; /* Increased width to accommodate longer text */
+  min-width: 200px; /* Ensure labels don't shrink below this width */
   text-align: right;
   margin-right: 10px;
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .matlab-interface .value-display {
@@ -1629,10 +1635,9 @@ body {
   margin-left: 5px;
 }
 
-/* Windows 95 style slider */
 .matlab-interface input[type="range"] {
   -webkit-appearance: none;
-  width: 100%;
+  flex: 1; /* Allow the slider to take up remaining space */
   height: 6px;
   background: #d6d3ce;
   border: 1px solid #fff;
@@ -1695,7 +1700,7 @@ body {
   border-top-color: #808080;
   border-left-color: #808080;
   cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 .matlab-interface .control-group button:active {

@@ -21,10 +21,6 @@ body {
   transition: 500ms opacity;
 }
 
-/* Removed cursor pointer to make laptop non-clickable */
-.mockup.opened {
-  /* cursor: pointer; */
-}
 
 .mockup.loaded {
   opacity: 1;
