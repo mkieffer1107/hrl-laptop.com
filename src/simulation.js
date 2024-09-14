@@ -305,11 +305,11 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   
       // Block lower half toggle
-      const toggleButton = document.getElementById('toggleLowerHalf');
-      toggleButton.addEventListener('click', () => {
-        blockLowerHalf = !blockLowerHalf;
-        toggleButton.textContent = blockLowerHalf ? 'Enable Lower Half' : 'Disable Lower Half';
-      });
+      // const toggleButton = document.getElementById('toggleLowerHalf');
+      // toggleButton.addEventListener('click', () => {
+      //   blockLowerHalf = !blockLowerHalf;
+      //   toggleButton.textContent = blockLowerHalf ? 'Enable Lower Half' : 'Disable Lower Half';
+      // });
   
       // Update initial values
       angleValueDisplay.textContent = `${angleInput.value}°`;
