@@ -1,6 +1,6 @@
 body {
   margin: 20px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 .container {
@@ -21,13 +21,13 @@ body {
   transition: 500ms opacity;
 }
 
-.mockup.loaded {
-  opacity: 1;
-}
-
 /* Removed cursor pointer to make laptop non-clickable */
 .mockup.opened {
   /* cursor: pointer; */
+}
+
+.mockup.loaded {
+  opacity: 1;
 }
 
 .mockup .part .top,
@@ -105,7 +105,7 @@ body {
   padding: 15px;
   color: #000000;
   width: 100%;
-  max-width: 600px;
+  max-width: 650px; /* Increased max-width to accommodate longer labels */
   margin: 0 auto;
   box-shadow: inset 2px 2px 0 #ffffff, inset -2px -2px 0 #808080; /* Windows 95 style inset */
   font-size: 14px;
@@ -114,7 +114,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   display: none;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 .mockup.opened + .matlab-interface {
@@ -133,12 +133,15 @@ body {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping within control groups */
 }
 
 .matlab-interface label {
-  width: 180px;
+  width: 200px; /* Increased width to accommodate longer text */
+  min-width: 200px; /* Ensure labels don't shrink below this width */
   text-align: right;
   margin-right: 10px;
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .matlab-interface .value-display {
@@ -148,10 +151,9 @@ body {
   margin-left: 5px;
 }
 
-/* Windows 95 style slider */
 .matlab-interface input[type="range"] {
   -webkit-appearance: none;
-  width: 100%;
+  flex: 1; /* Allow the slider to take up remaining space */
   height: 6px;
   background: #d6d3ce;
   border: 1px solid #fff;
@@ -214,7 +216,7 @@ body {
   border-top-color: #808080;
   border-left-color: #808080;
   cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 .matlab-interface .control-group button:active {
