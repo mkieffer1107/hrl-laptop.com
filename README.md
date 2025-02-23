@@ -1,4 +1,6 @@
-# Laptop Open on Hover CSS3 Animation
+# antennas or antennae?
 
-A Pen created on CodePen.io. Original URL: [https://codepen.io/designersnest/pen/gOaXPbr](https://codepen.io/designersnest/pen/gOaXPbr).
+fun with o1!
+
+laptop code: [https://codepen.io/designersnest/pen/gOaXPbr](https://codepen.io/designersnest/pen/gOaXPbr).
 
